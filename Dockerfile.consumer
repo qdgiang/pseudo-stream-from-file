@@ -1,0 +1,21 @@
+FROM python:3.10 
+
+RUN \
+  apt-get update && \
+  apt-get install -y default-jre && \
+  rm -rf /var/lib/apt/lists/*
+
+WORKDIR /consumer
+
+COPY consumer.txt .
+
+RUN pip install --upgrade pip && pip install --no-cache-dir -r consumer.txt
+
+COPY postgresql-42.7.3.jar .
+
+COPY kafka2spark.py .
+
+COPY .kafka.env .
+# CMD ["sleep", "1000000"]
+# CMD ["python", "file2kafka.py"]
+CMD ["spark-submit", "--packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.1", "--driver-class-path", "./postgresql-42.7.3.jar", "--jars", "postgresql", "kafka2spark.py"]

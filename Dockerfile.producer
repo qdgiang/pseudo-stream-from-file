@@ -1,0 +1,15 @@
+FROM python:3.10
+
+WORKDIR /producer
+
+COPY producer.txt .
+
+RUN pip install --no-cache-dir -r producer.txt
+
+COPY VN_Index_Historical_Data.csv .
+
+COPY file2kafka.py .
+
+COPY .kafka.env .
+
+CMD ["python", "file2kafka.py"]
