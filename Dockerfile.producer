@@ -12,4 +12,4 @@ COPY file2kafka.py .
 
 COPY .kafka.env .
 
-CMD ["python", "file2kafka.py"]
+ENTRYPOINT ["python", "file2kafka.py"]

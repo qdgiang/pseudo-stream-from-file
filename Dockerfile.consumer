@@ -18,4 +18,4 @@ COPY kafka2spark.py .
 COPY .kafka.env .
 # CMD ["sleep", "1000000"]
 # CMD ["python", "file2kafka.py"]
-CMD ["spark-submit", "--packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.1", "--driver-class-path", "./postgresql-42.7.3.jar", "--jars", "postgresql", "kafka2spark.py"]
+ENTRYPOINT ["spark-submit", "--packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.1", "--driver-class-path", "./postgresql-42.7.3.jar", "--jars", "postgresql", "kafka2spark.py"]
